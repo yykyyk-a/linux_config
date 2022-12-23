@@ -1,0 +1,1 @@
+[ -f  ~/.mybashrc ] && source ~/.mybashrc
