@@ -1,20 +1,83 @@
-#YYK config
-unbind C-b
-#更改前缀
-set -g prefix C-a
-#重新加载配置文件
-bind r source-file ~/.tmux.conf \; display "Reloaded!"
-#up
-bind-key k select-pane -U
-#down
-bind-key j select-pane -D
-#left
+#-- base --#
+set -g default-terminal "screen"
+set -g display-time 3000
+set -g history-limit 65535
+# colors
+#setw -g mode-bg black
+#set-option -g default-terminal "screen-256color" #"xterm-256color" # "screen-256color"
+#set-option -g pane-active-border-fg green
+##----------------------------------------------
+
+
+set-option -g prefix C-a
+unbind-key C-b
+bind-key C-a send-prefix
+
+############################################################################
+# panes
+############################################################################
+# Navigation ---------------------------------------------------------------
+# use the vim motion keys to move between panes
 bind-key h select-pane -L
-#right
+bind-key j select-pane -D
+bind-key k select-pane -U
 bind-key l select-pane -R
-#
-unbind '"'
-bind z splitw -v -c '#{pane_current_path}' # 垂直方向新增面板，默认进入当前目录
-unbind %
-bind v  splitw -h -c '#{pane_current_path}' # 水平方向新增面板，默认进入当前目录
-set-option -g mouse on
+
+# Resizing ---------------------------------------------------------------
+bind-key C-h resize-pane -L
+bind-key C-j resize-pane -D
+bind-key C-k resize-pane -U
+bind-key C-l resize-pane -R
+
+
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+
+# new split in current pane (horizontal / vertical)
+#bind-key c split-window -v # split pane horizontally
+#bind-key v split-window -h # split pane vertically
+
+bind-key r source-file ~/.tmux.conf ; display-message "Config reloaded.."
+ 
+# Cut pannel
+bind-key v splitw -h
+bind-key z splitw -v
+bind-key m resize-pane -Z
+
+# Ctrl-a Ctrl-a to change between previous/next
+bind-key C-a last-window
+
+# swap pane
+bind-key L swap-pane -U
+bind-key H swap-pane -D
+
+# status bar
+
+#setw -g window-status-current-fg colour223
+#setw -g window-status-current-bg colour237
+#setw -g window-status-current-attr bold
+#setw -g window-status-current-format "#I:#W#F"
+
+bind-key b copy-mode\; send-keys -X bottom-line\; send-keys -X search-backward "error" 
+
+# ！！！importent！！！ 开启24 bit color 其他方式都无效
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"
+
+# Dracula Colours
+# background_color(grey) '#282a36'
+# current_line_color(dark grey) '#44475a'
+# foreground_color '#f8f8f2'
+# comment_color '#6272a4'
+# cyan '#8be9fd'
+# green '#50fa7b'
+# orange '#ffb86c'
+# pink '#ff79c6'
+# purple '#bd93f9'
+# red '#ff5555'
+# yellow '#f1fa8c'
+set -g status-style bg='#44475a',fg='#bd93f9'
+set-window-option -g window-status-current-style fg='#f1fa8c',bg='#282a36'
+# pane border
+set -g pane-border-style fg='#44475a'
+set -g pane-active-border-style fg='#6272a4'
