@@ -1,0 +1,38 @@
+# extraction me
+# usage: ex <file>
+exm () {
+    if [ -f $1 ]; then
+        case $1 in
+            *.tar.bz2)     tar xjf $1      ;;
+            *.tar.gz)      tar xzf $1      ;;
+            *.bz2)         bunzip2 $1      ;;
+            *.rar)         unrar x $1      ;;
+            *.gz)          gunzip  $1      ;;
+            *.tar)         tar xf  $1      ;;
+            *.zip)         unzip   $1      ;;
+            *.deb)         ar -x   $1      ;;
+            *.Z)           uncompress $1   ;;
+            *.7z)          7z x    $1      ;;
+            *.xz)          xz -d   $1      ;;
+        esac
+   fi
+}
+
+# new find and grep command
+fag () {
+    if [ $# -eq 0 ];then
+        echo "fag <find value> [directory]"
+        return
+    fi
+    if [ $# -eq 1 ];then
+        find . -iname "*$1*" | grep -i "$1";
+        return
+    fi
+    search="$1"
+    shift
+    find "$@" -iname "*$search*" | grep -i "$search";
+}
+export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
+export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+echo "Hi~"
+
