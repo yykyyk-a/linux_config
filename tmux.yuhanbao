@@ -1,0 +1,31 @@
+tmux学习
+2022年12月7日
+9:12
+分
+一、会话命令
+1.进入Tmux：tmux
+2.退出Tmux ：Ctrl+a+d或显式输入exit命令
+3.新建一个指定名称的会话：tmux new -s <session-name>
+4.退出当前对话，但是会话和里面的进程仍在后台运行：tmux detach
+5.查看当前所有的Tmux会话：tmux ls
+6.重新接入某个已存在的会话: tmux at -t <sesstion name>
+7.杀死某个会话tmux kill-session -t <sesstion name>
+8.在某一会话中切换到另一个会话：tmux switch -t <sesstion name>
+9.重命名会话：tmux rename-session -t <old-name> <new-name>
+10.显示当前会话，并切换会话：ctrl+a+s
+
+二、窗格命令
+（1）pane操作
+1.水平建立新的pane（左右）: ctrl+a+v
+2.垂直建立新的pane（上下）: ctrl+a+z
+3.关闭当前的pane：ctrl+a+x
+4.选择下一个pane（顺时针转）: ctrl+a+o (也可以用hjkl和上下左右键）
+5.查看pane中移动不了的history log：ctrl+a+[
+（2）窗口(windows)操作
+1.新建新的window：ctrl+a+c
+2.kill当前window：ctrl+a+&
+3.重命名当前window：ctrl+a+,
+4.显示所有窗口，并切换窗口：trl+a+w
+
+
+
