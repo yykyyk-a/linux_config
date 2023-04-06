@@ -36,3 +36,59 @@ export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
 export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
 echo "Hi~"
 
+# change history size
+export HISTFILESIZE=400000000
+export HISTSIZE=10000
+
+# 把近期提交的修改过的文件导出到一个zip文件
+ga () {
+   git archive --format=zip --output $(basename "$PWD").zip HEAD
+}
+
+# history and grep
+h () {
+   if [ $# -ne 1 ];then
+       cat ~/.bash_history  | tac | cat -n | tac
+       #cat -n ~/.bash_history
+       return
+   fi
+   grep "$@" -a ~/.bash_history*
+}
+
+# ps -ef | grep ""
+alias pg='ps -ef | grep'
+
+# clear
+alias c='clear'
+
+# directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias 3..='cd ../../..'
+alias 4..='cd ../../../..'
+
+# tmux
+alias ta='tmux attach'
+
+# git
+alias gs='git status'
+alias gl='git log'
+alias gd='git diff HEAD^ HEAD --name-status'
+alias gb='git branch -a'
+alias g='grep -inr'
+
+
+# cscope code grep tool
+cs () {
+    find `pwd` -name "*.[ch]" -o -name "*.cpp" > cscope.files
+    ctags -R
+    cscope -bR
+}
+
+# cs new grep
+gc () {
+    #ct;
+    grep -inr  "$@" --exclude=cscope.* --exclude=tags --exclude-dir=.git
+}
+
+
